@@ -4,7 +4,7 @@
 [![Donate](https://img.shields.io/badge/PayPal-Donate-blue.svg)](https://www.paypal.me/NoLogig)
 
 ## Sample Prev. Node Garden
-![Node Garden Sample](https://github.com/NoLogig/Golden-ratio/blob/master/src/assets/node-garden.png)
+![Node Garden Sample](https://github.com/NoLogig/Node-garden/blob/master/src/assets/node-garden.png)
 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.2.

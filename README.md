@@ -6,7 +6,6 @@
 ## Sample Prev. Node Garden
 ![Node Garden Sample](https://github.com/NoLogig/Node-garden/blob/master/src/assets/node-garden.png)
 
-
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.2.
 
 ## Development server

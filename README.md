@@ -1,4 +1,11 @@
-# NodeGarden
+# Node Garden
+[![Dependencies](https://img.shields.io/david/NoLogig/Node-garden.svg)](https://david-dm.org/NoLogig/Node-garden)
+[![License](https://img.shields.io/github/license/NoLogig/Node-garden.svg)](https://choosealicense.com/licenses/mit/)
+[![Donate](https://img.shields.io/badge/PayPal-Donate-blue.svg)](https://www.paypal.me/NoLogig)
+
+## Sample Prev. Node Garden
+![Node Garden Sample](https://github.com/NoLogig/Golden-ratio/blob/master/src/assets/node-garden.png)
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.2.
 

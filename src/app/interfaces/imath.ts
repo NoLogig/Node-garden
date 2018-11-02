@@ -1,13 +1,37 @@
 
+export interface ICircle {
+    r: number;
+}
+export interface IRectangle {
+    w: number;
+    h: number;
+}
 export interface IPoint {
     x: number;
     y: number;
 }
 
+export interface ICirclePoint extends IPoint, ICircle { }
+export interface IRectPoint extends IPoint, IRectangle { }
+
 export interface IParticle extends IPoint {
     vx: number;
     vy: number;
 }
+export interface IParticlePhysics {
+    mass?: number;
+    bounce?: number;
+    friction?: number;
+    gravity?: number;
+    springs?: ISpring[];
+    gravitations?: IPoint[];
+}
+
+export interface ICircleShape extends IParticle, ICircle { }
+export interface ICircleParticle extends ICircleShape, IParticlePhysics { }
+
+export interface IRectShape extends IParticle, IRectangle { }
+export interface IRectParticle extends IRectShape, IParticlePhysics { }
 
 export interface IVector extends IPoint {
 
@@ -30,32 +54,8 @@ export interface IVector extends IPoint {
     divideBy(v2: number);
 }
 
-export interface IParticlePhysics {
-    mass?: number;
-    bounce?: number;
-    friction?: number;
-    gravity?: number;
-    springs?: ISpring[];
-    gravitations?: IPoint[];
-}
-
 export interface ISpring {
     point: IPoint;
     k: number;
     length: number;
 }
-
-export interface ICircleShape extends IParticle {
-    r: number;
-}
-
-export interface IRectShape extends IParticle {
-    w: number;
-    h: number;
-}
-
-export interface IPolygonShape extends IParticle {
-    p: number[];
-}
-
-export interface ICircleParticle extends ICircleShape, IParticlePhysics  { }

@@ -39,6 +39,7 @@ export class CanvasComponent implements OnInit {
 
     this.nodes = this.createRndShapes(this.nodeCounter, this.c_Width, this.c_Height);
 
+    // Prevent memory leak
     this.ngZone.runOutsideAngular(this.render);
   }
 

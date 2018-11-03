@@ -21,5 +21,5 @@ export class MathService {
   }
 
 }
-let mt = new MathService();
-export default mt;
+let m = new MathService();
+export default m;

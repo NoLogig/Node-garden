@@ -14,40 +14,50 @@ export class CanvasComponent implements OnInit {
 
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
-  c_Width: number;
-  c_Height: number;
+  cWidth: number;
+  cHeight: number;
 
   nodeCounter: number;
   maxConnectDist: number;
   nodes: ICircleShape[];
 
-  constructor(public ngZone: NgZone) { }
+  constructor(public ngZone: NgZone) {
+
+  }
 
   ngOnInit(): void {
 
     this.canvas = this.geoCanvas.nativeElement;
     this.ctx = this.geoCanvas.nativeElement.getContext('2d');
 
-    this.c_Width = this.canvas.width = window.innerWidth;
-    this.c_Height = this.canvas.height = window.innerHeight;
+    this.cWidth = this.canvas.width = window.innerWidth;
+    this.cHeight = this.canvas.height = window.innerHeight;
 
     this.ctx.strokeStyle = 'rgba(0, 255, 255, .9)';
     this.ctx.fillStyle = 'rgba(0, 0, 0, .8)';
 
-    this.maxConnectDist = 150;
+    this.maxConnectDist = 120;
     this.nodeCounter = 300;
 
-    this.nodes = this.createRndShapes(this.nodeCounter, this.c_Width, this.c_Height);
+    this.nodes = this.createRndShapes(this.nodeCounter, this.cWidth, this.cHeight);
 
     // Prevent memory leak
     this.ngZone.runOutsideAngular(this.render);
+  }
+
+  render = (): void => {
+
+    this.ctx.clearRect(0, 0, this.cWidth, this.cHeight);
+    this.updateNodes(this.nodes);
+
+    requestAnimationFrame(this.render);
   }
 
   createRndShapes(n: number, x_Max = 50, y_Max = 50, r_Max = 8, vx_Max = 4, vy_Max = 4): ICircleShape[] {
 
     let _shapes: ICircleShape[] = [];
 
-    for (let i = 0; i < n - 1; i++) {
+    for (let i = 0, len = n - 1; i < len; i++) {
 
       _shapes.push({
         x: Math.random() * x_Max,
@@ -61,11 +71,12 @@ export class CanvasComponent implements OnInit {
     return _shapes;
   }
 
-  drawCircle(ctx: CanvasRenderingContext2D, { x, y, r }: ICircleShape): void {
+  drawCircle(ctx: CanvasRenderingContext2D, shape: ICircleShape): void {
 
     ctx.beginPath();
-    ctx.arc(x, y, r, 0, 6.29);
-    return ctx.fill();
+    ctx.arc(shape.x, shape.y, shape.r, 0, 6.29);
+    ctx.fill();
+    return;
   }
 
   drawLine(ctx: CanvasRenderingContext2D, p1: IPoint, p2: IPoint): void {
@@ -73,7 +84,8 @@ export class CanvasComponent implements OnInit {
     ctx.beginPath();
     ctx.moveTo(p1.x, p1.y);
     ctx.lineTo(p2.x, p2.y);
-    return ctx.stroke();
+    ctx.stroke();
+    return;
   }
 
   // Update & draw shapes
@@ -83,17 +95,18 @@ export class CanvasComponent implements OnInit {
 
       let node = nodes[i];
 
-      node.x = maths.lock(node.x + node.vx, 0, this.c_Width);
-      node.y = maths.lock(node.y + node.vy, 0, this.c_Height);
+      node.x = maths.lock(node.x + node.vx, 0, this.cWidth);
+      node.y = maths.lock(node.y + node.vy, 0, this.cHeight);
 
       this.drawCircle(this.ctx, node);
 
-      this.connectNodes(this.nodes, i, this.maxConnectDist);
+      this.connectAllNodes(this.nodes, i, this.maxConnectDist);
     }
+    return;
   }
 
   // Draw lines between nodes if in range
-  connectNodes(nodes: ICircleShape[], currentIndex: number, maxDist: number): void {
+  connectAllNodes(nodes: ICircleShape[], currentIndex: number, maxDist: number): void {
 
     let node = nodes[currentIndex];
 
@@ -102,7 +115,7 @@ export class CanvasComponent implements OnInit {
       let _node = nodes[i],
         dx = _node.x - node.x,
         dy = _node.y - node.y,
-        dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+        dist = Math.sqrt((dx ** 2) + (dy ** 2));
 
       if (dist < maxDist) {
 
@@ -110,15 +123,6 @@ export class CanvasComponent implements OnInit {
         this.drawLine(this.ctx, node, _node);
       }
     }
+    return;
   }
-
-  render = (): void => {
-
-    this.ctx.clearRect(0, 0, this.c_Width, this.c_Height);
-    this.updateNodes(this.nodes);
-
-    // this.updateStrokes(this.nodes);
-    requestAnimationFrame(this.render);
-  }
-
 }

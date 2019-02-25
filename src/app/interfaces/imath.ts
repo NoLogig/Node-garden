@@ -11,7 +11,9 @@ export interface IPoint {
     y: number;
 }
 
+
 export interface ICirclePoint extends IPoint, ICircle { }
+
 export interface IRectPoint extends IPoint, IRectangle { }
 
 export interface IParticle extends IPoint {
@@ -27,11 +29,15 @@ export interface IParticlePhysics {
     gravitations?: IPoint[];
 }
 
+
 export interface ICircleShape extends IParticle, ICircle { }
+
 export interface ICircleParticle extends ICircleShape, IParticlePhysics { }
 
 export interface IRectShape extends IParticle, IRectangle { }
+
 export interface IRectParticle extends IRectShape, IParticlePhysics { }
+
 
 export interface IVector extends IPoint {
 
@@ -53,6 +59,7 @@ export interface IVector extends IPoint {
     multiplyBy(v2: number);
     divideBy(v2: number);
 }
+
 
 export interface ISpring {
     point: IPoint;

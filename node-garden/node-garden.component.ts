@@ -1,16 +1,16 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { ICircleShape, IPoint } from '../interfaces/imath';
-import maths from '../services/math/math.service';
+import maths from '../app/services/math/math.service';
 
 @Component({
-  selector: 'nlg-canvas',
-  templateUrl: './canvas.component.html',
-  styleUrls: ['./canvas.component.scss'],
+  selector: 'nlg-node-garden',
+  templateUrl: './node-garden.component.html',
+  styleUrls: ['./node-garden.component.scss'],
   providers: []
 })
-export class CanvasComponent implements OnInit {
+export class NodeGardenComponent implements OnInit {
 
-  @ViewChild('geoCanvas') geoCanvas: ElementRef;
+  @ViewChild('nodeCanvas') geoCanvas: ElementRef;
 
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;

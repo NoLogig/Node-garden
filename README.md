@@ -1,9 +1,9 @@
 # Node Garden
-[![License](https://img.shields.io/github/license/NoLogig/Node-garden.svg)](https://choosealicense.com/licenses/mit/)
+[![License](https://img.shields.io/github/license/NoLogig/Inspiration-Station.svg)](https://choosealicense.com/licenses/mit/)
 
 ## Sample Prev. Node Garden
 
-![Node Garden Sample](https://github.com/NoLogig/Node-garden/blob/master/src/assets/nodes-garden.gif)
+![Node Garden Sample](https://github.com/NoLogig/Node-garden/nodes-garden.gif)
 
 ## Angular 
 

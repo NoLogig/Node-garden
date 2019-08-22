@@ -1,17 +1,17 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone, OnDestroy } from '@angular/core';
 
-export interface ICircle {
+interface ICircle {
   r: number;
 }
-export interface IPoint {
+interface IPoint {
   x: number;
   y: number;
 }
-export interface IParticle extends IPoint {
+interface IParticle extends IPoint {
   vx: number;
   vy: number;
 }
-export interface ICircleParticle extends IParticle, ICircle { }
+interface ICircleParticle extends IParticle, ICircle { }
 
 @Component({
   selector: 'nlg-node-garden',
@@ -41,19 +41,9 @@ export class NodeGardenComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.canvas = this.nodeCanvas.nativeElement;
-    this.ctx = this.canvas.getContext('2d');
+    this.initCanvas();
 
-    this.cWidth = this.canvas.width = window.innerWidth;
-    this.cHeight = this.canvas.height = window.innerHeight;
-
-    this.ctx.strokeStyle = 'rgba(0, 255, 255, .9)';
-    this.ctx.fillStyle = 'rgba(0, 0, 0, .8)';
-
-    this.maxConnectDist = 120;
-    this.nodeCounter = 300;
-
-    this.nodes = this.createRndShapes(this.nodeCounter, this.cWidth, this.cHeight);
+    this.initConfigs();
 
     // Prevent memory leak
     this.ngZone.runOutsideAngular(this.render);
@@ -71,39 +61,24 @@ export class NodeGardenComponent implements OnInit, OnDestroy {
    *  Canvas
    */
 
-  createRndShapes(n: number, x_Max = 50, y_Max = 50, r_Max = 8, vx_Max = 4, vy_Max = 4): ICircleParticle[] {
+  initCanvas() {
 
-    let tmp_shapes: ICircleParticle[] = [];
+    this.canvas = this.nodeCanvas.nativeElement;
+    this.ctx = this.canvas.getContext('2d');
 
-    for (let i = 0, len = n - 1; i < len; i++) {
+    this.cWidth = this.canvas.width = window.innerWidth;
+    this.cHeight = this.canvas.height = window.innerHeight;
 
-      tmp_shapes.push({
-        x: Math.random() * x_Max,
-        y: Math.random() * y_Max,
-        r: Math.random() * r_Max + 2,
-        vx: Math.random() * vx_Max - vx_Max * .5,
-        vy: Math.random() * vy_Max - vy_Max * .5,
-      });
-    }
-
-    return tmp_shapes;
+    this.ctx.strokeStyle = 'rgba(0, 255, 255, .9)';
+    this.ctx.fillStyle = 'rgba(0, 0, 0, .8)';
   }
 
-  drawCircle(ctx: CanvasRenderingContext2D, shape: ICircleParticle): void {
+  initConfigs() {
+    
+    this.maxConnectDist = 120;
+    this.nodeCounter = 300;
 
-    ctx.beginPath();
-    ctx.arc(shape.x, shape.y, shape.r, 0, 6.29);
-    ctx.fill();
-    return;
-  }
-
-  drawLine(ctx: CanvasRenderingContext2D, p1: IPoint, p2: IPoint): void {
-
-    ctx.beginPath();
-    ctx.moveTo(p1.x, p1.y);
-    ctx.lineTo(p2.x, p2.y);
-    ctx.stroke();
-    return;
+    this.nodes = this.createRndShapes(this.nodeCounter, this.cWidth, this.cHeight);
   }
 
   // Update & draw shapes
@@ -169,6 +144,41 @@ export class NodeGardenComponent implements OnInit, OnDestroy {
     if (n < min) { return max; }
     if (n > max) { return min; }
     return n;
+  }
+
+  createRndShapes(n: number, x_Max = 50, y_Max = 50, r_Max = 8, vx_Max = 4, vy_Max = 4): ICircleParticle[] {
+
+    let tmp_shapes: ICircleParticle[] = [];
+
+    for (let i = 0, len = n - 1; i < len; i++) {
+
+      tmp_shapes.push({
+        x: Math.random() * x_Max,
+        y: Math.random() * y_Max,
+        r: Math.random() * r_Max + 2,
+        vx: Math.random() * vx_Max - vx_Max * .5,
+        vy: Math.random() * vy_Max - vy_Max * .5,
+      });
+    }
+
+    return tmp_shapes;
+  }
+
+  drawCircle(ctx: CanvasRenderingContext2D, shape: ICircleParticle): void {
+
+    ctx.beginPath();
+    ctx.arc(shape.x, shape.y, shape.r, 0, 6.29);
+    ctx.fill();
+    return;
+  }
+
+  drawLine(ctx: CanvasRenderingContext2D, p1: IPoint, p2: IPoint): void {
+
+    ctx.beginPath();
+    ctx.moveTo(p1.x, p1.y);
+    ctx.lineTo(p2.x, p2.y);
+    ctx.stroke();
+    return;
   }
 
 }

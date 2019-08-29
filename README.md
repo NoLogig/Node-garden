@@ -3,7 +3,7 @@
 
 ## Sample Prev. Node Garden
 
-![Node Garden Sample](https://github.com/NoLogig/Node-garden/nodes-garden.gif)
+![Node Garden Sample](https://github.com/NoLogig/Node-garden/blob/master/nodes-garden.gif)
 
 # Angular 
 
